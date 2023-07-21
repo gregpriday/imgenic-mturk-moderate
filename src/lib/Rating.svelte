@@ -6,7 +6,7 @@
     import starSvg from '../assets/star.svg?raw';
 
     // This should be called when a new rating is selected
-    export let onSelected = () => {};
+    export let onSelected = (r) => {};
 
     // The current rating, null means that nothing is selected
     export let rating = null;
@@ -57,6 +57,7 @@
 
     .rating-item {
         cursor: pointer;
+		display: block;
     }
 
 	:global(svg) {
@@ -70,6 +71,12 @@
         :global(svg) {
             fill: #A9A9A9; // Dark Gray
         }
+
+		&:hover {
+			:global(svg) {
+				fill: lighten(#A9A9A9, 20%);
+            }
+        }
     }
 
     .highlighted {
@@ -78,11 +85,23 @@
                 fill: #FFD700; // Gold
 				filter: drop-shadow(0px 2px 0 rgba(0, 0, 0, 0.1));
             }
+
+            &:hover {
+                :global(svg) {
+                    fill: lighten(#FFD700, 20%);
+                }
+            }
         }
 
         .icon-cancel {
             :global(svg) {
                 fill: #B22222; // Firebrick
+            }
+
+            &:hover {
+                :global(svg) {
+                    fill: lighten(#B22222, 20%);
+                }
             }
         }
     }

@@ -97,6 +97,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        background: #e0e0e0;
     }
 
     .image-container {
@@ -107,6 +108,7 @@
             max-height: 600px;
             width: auto;
             cursor: none;
+            display: block;
         }
     }
 </style>
