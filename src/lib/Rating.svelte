@@ -82,25 +82,25 @@
     .highlighted {
         .icon {
             :global(svg) {
-                fill: #FFD700; // Gold
+                fill: $primary-color;
 				filter: drop-shadow(0px 2px 0 rgba(0, 0, 0, 0.1));
             }
 
             &:hover {
                 :global(svg) {
-                    fill: lighten(#FFD700, 20%);
+                    fill: lighten($primary-color, 20%);
                 }
             }
         }
 
         .icon-cancel {
             :global(svg) {
-                fill: #B22222; // Firebrick
+                fill: $cancel-color; // Firebrick
             }
 
             &:hover {
                 :global(svg) {
-                    fill: lighten(#B22222, 20%);
+                    fill: lighten($cancel-color, 20%);
                 }
             }
         }

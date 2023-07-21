@@ -93,11 +93,12 @@
 
 <style lang="scss">
     .tool-wrapper {
-        height: 600px;
+        height: 500px;
         display: flex;
         align-items: center;
         justify-content: center;
         background: #e0e0e0;
+        padding: 15px 0;
     }
 
     .image-container {
@@ -105,7 +106,7 @@
         position: relative;
 
         img {
-            max-height: 600px;
+            max-height: 500px;
             width: auto;
             cursor: none;
             display: block;

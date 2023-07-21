@@ -9,6 +9,7 @@
     // SVG Assets
     import leftSvg from './assets/left.svg?raw';
     import rightSvg from './assets/right.svg?raw';
+    import RatingHistogram from "./lib/RatingHistogram.svelte";
 
     let hit = JSON.parse(document.getElementById('hit-data').value);
     let selected = 0;
@@ -95,7 +96,18 @@
 <div class="mturk-wrapper">
     <div class="progress-wrapper">
         <div class="progress-bar-wrapper"><div class="progress-bar" style="width: {doneCount/totalCount * 100}%"></div></div>
-        <span>{doneCount}/{totalCount} images rated</span>
+
+        <div class="progress-parts">
+            <!-- Display the submit button if the job is complete-->
+            <button class="button-primary" type="submit" disabled={!isJobComplete}>Submit Ratings</button>
+            <div class="progress-ratings">
+                <div class="histogram-wrapper">
+                    <RatingHistogram hit={hit} />
+                </div>
+                <span>{doneCount}/{totalCount} images rated</span>
+            </div>
+            <button class="button-primary" type="submit">Instructions</button>
+        </div>
     </div>
 
     <div class="content-wrapper">
@@ -115,17 +127,9 @@
                 </div>
             {/key}
         </div>
-
-        <div class="rating-info">
-            <Instructions rating={0}></Instructions>
-        </div>
     </div>
 
     <ImageGallery {hit} {selected} {selectImage} />
-
-    <!-- Display the submit button if the job is complete-->
-    <button class="submit-button" type="submit" disabled={!isJobComplete}>Submit Ratings</button>
-
 </div>
 
 <style lang="scss">
@@ -148,16 +152,28 @@
     .progress-wrapper {
         background: #333;
         text-align: center;
-        font-size: 1.2em;
         color: white;
 
+        .progress-parts {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .progress-ratings {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
         .progress-bar-wrapper {
-            height: 4px;
+            height: 2px;
             background: #666;
 
             .progress-bar {
                 height: 100%;
-                background: #11c211;
+                background: $primary-color;
+                box-shadow: 0 0 2px rgba($primary-color, 0.8);
             }
         }
 
@@ -192,23 +208,24 @@
         padding: 10px;
     }
 
-    .submit-button {
+    .button-primary {
         margin: 10px;
         color: #fff;
-        background-color: #232f3e;
+        background-color: $primary-color;
         border: none;
         border-radius: 3px;
-        padding: 15px 20px;
-        font-size: 16px;
+        padding: 10px 20px;
+        font-size: 15px;
         cursor: pointer;
         transition: background-color 0.3s ease;
+        font-weight: bold;
 
         &:hover {
-            background-color: #1d2635;
+            background-color: lighten($primary-color, 10%);
         }
 
         &:active {
-            background-color: #17212b;
+            background-color: darken($primary-color, 10%);
         }
 
         &:focus {
