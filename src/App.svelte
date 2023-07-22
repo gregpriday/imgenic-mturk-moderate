@@ -11,9 +11,9 @@
     import rightSvg from './assets/right.svg?raw';
     import RatingHistogram from "./lib/RatingHistogram.svelte";
 
-    let hit = JSON.parse(document.getElementById('hit-data').value);
-    let selected = 0;
+    let hit = null;
 
+    let selected = 0;
     let instructions;
 
     function setRatingsInput(){
@@ -59,6 +59,10 @@
     }
 
     onMount(() => {
+        // Load the hit data
+        hit = JSON.parse(document.getElementById('hit-data').value);
+        console.log(hit);
+
         window.addEventListener('keydown', handleKeyDown);
         preloadImages();
     });
@@ -87,7 +91,7 @@
 
     let isJobComplete = false;
     let doneCount = 0;
-    let totalCount = hit.length;
+    let totalCount = hit ? hit.length : 30;
     $: if (hit) {
         setRatingsInput();
         doneCount = imagesDoneCount();
@@ -95,46 +99,49 @@
     }
 </script>
 
-<div class="mturk-wrapper">
-    <div class="progress-wrapper">
-        <div class="progress-bar-wrapper"><div class="progress-bar" style="width: {doneCount/totalCount * 100}%"></div></div>
+{#if hit}
+    <div class="mturk-wrapper">
 
-        <div class="progress-parts">
-            <!-- Display the submit button if the job is complete-->
-            <button class="button-primary" type="submit" disabled={!isJobComplete}>Submit Ratings</button>
-            <div class="progress-ratings">
-                <div class="histogram-wrapper">
-                    <RatingHistogram hit={hit} />
-                </div>
-                <span>{doneCount}/{totalCount} images rated</span>
-            </div>
-            <button class="button-primary" on:click|preventDefault={() => {instructions.openModal()}}>Instructions</button>
-        </div>
-    </div>
+        <div class="progress-wrapper">
+            <div class="progress-bar-wrapper"><div class="progress-bar" style="width: {doneCount/totalCount * 100}%"></div></div>
 
-    <div class="content-wrapper">
-        <div class="image-wrapper">
-            {#key selected}
-                <ImageLoupe src={generateCloudFlareUrl(hit[selected].image, {quality: 60})} />
-                <div class="input-wrapper">
-                    <button class="navigation-button" aria-label="Previous image" on:click={navigateLeft}>
-                        {@html leftSvg}
-                    </button>
-                    <div>
-                        <Rating rating="{hit[selected].rating ?? null}" onSelected={(newRating) => updateRating(selected, newRating)} />
+            <div class="progress-parts">
+                <!-- Display the submit button if the job is complete-->
+                <button class="button-primary" type="submit" disabled={!isJobComplete}>Submit Ratings</button>
+                <div class="progress-ratings">
+                    <div class="histogram-wrapper">
+                        <RatingHistogram hit={hit} />
                     </div>
-                    <button class="navigation-button" aria-label="Next image" on:click={navigateRight}>
-                        {@html rightSvg}
-                    </button>
+                    <span>{doneCount}/{totalCount} images rated</span>
                 </div>
-            {/key}
+                <button class="button-primary" on:click|preventDefault={() => {instructions.openModal()}}>Instructions</button>
+            </div>
         </div>
+
+        <div class="content-wrapper">
+            <div class="image-wrapper">
+                {#key selected}
+                    <ImageLoupe src={generateCloudFlareUrl(hit[selected].image, {quality: 60})} />
+                    <div class="input-wrapper">
+                        <button class="navigation-button" aria-label="Previous image" on:click={navigateLeft}>
+                            {@html leftSvg}
+                        </button>
+                        <div>
+                            <Rating rating="{hit[selected].rating ?? null}" onSelected={(newRating) => updateRating(selected, newRating)} />
+                        </div>
+                        <button class="navigation-button" aria-label="Next image" on:click={navigateRight}>
+                            {@html rightSvg}
+                        </button>
+                    </div>
+                {/key}
+            </div>
+        </div>
+
+        <ImageGallery {hit} {selected} {selectImage} />
+
+        <Instructions bind:this={instructions} />
     </div>
-
-    <ImageGallery {hit} {selected} {selectImage} />
-
-    <Instructions bind:this={instructions} />
-</div>
+{/if}
 
 <style lang="scss">
     .mturk-wrapper {
