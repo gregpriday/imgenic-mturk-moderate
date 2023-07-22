@@ -62,10 +62,12 @@
     export function closeModal() {
         // If an event was given, prevent default
         displayed = false;
+		document.body.style.overflow = 'auto';
     }
 
     export function openModal() {
         displayed = true;
+		document.body.style.overflow = 'hidden';
 	}
 
     export async function displayPage(page, lang) {
@@ -129,6 +131,10 @@
             background-color: white;
             z-index: 100;
             transition: opacity 0.5s ease-in-out;
+
+			// Hide overflow and show scrollbar
+			overflow: hidden;
+			overflow-y: scroll;
 
             .top-bar {
                 display: flex;
