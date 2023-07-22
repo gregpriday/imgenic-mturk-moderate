@@ -62,7 +62,7 @@
 <style lang="scss">
     .image-gallery {
         display: flex;
-        overflow-x: scroll;
+        overflow: hidden;
         padding: 20px 10px 0 10px;
 
         // Disable selected style

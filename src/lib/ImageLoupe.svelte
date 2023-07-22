@@ -65,8 +65,8 @@
         let x = pos.x;
         let y = pos.y;
 
-        glass.style.left = (x - w + window.pageXOffset) + "px";
-        glass.style.top = (y - h + window.pageYOffset) + "px";
+        glass.style.left = (x - w) + "px";
+        glass.style.top = (y - h) + "px";
 
         glass.style.backgroundPosition = (-((x * zoom) - w)) + "px " + (-((y * zoom) - h)) + "px";
     }
@@ -76,10 +76,8 @@
         let a, x = 0, y = 0;
         e = e || window.event;
         a = img.getBoundingClientRect();
-        x = e.pageX - a.left;
-        y = e.pageY - a.top;
-        x = x - window.pageXOffset;
-        y = y - window.pageYOffset;
+        x = e.clientX - a.left;
+        y = e.clientY - a.top;
 
         return {x, y};
     }

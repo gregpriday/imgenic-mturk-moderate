@@ -60,11 +60,7 @@
 
     onMount(() => {
         // Load the hit data
-        console.log(document.getElementById('hit-data').value);
-
         hit = JSON.parse(document.getElementById('hit-data').value);
-        console.log(hit);
-
         window.addEventListener('keydown', handleKeyDown);
         preloadImages();
     });
@@ -139,11 +135,14 @@
             </div>
         </div>
 
-        <ImageGallery {hit} {selected} {selectImage} />
+        <div class="gallery-wrapper">
+            <ImageGallery {hit} {selected} {selectImage} />
+        </div>
 
-        <Instructions bind:this={instructions} />
     </div>
 {/if}
+
+<Instructions bind:this={instructions} />
 
 <style lang="scss">
     .mturk-wrapper {
@@ -250,5 +249,9 @@
             opacity: 0.25;
             cursor: not-allowed;
         }
+    }
+
+    .gallery-wrapper {
+        padding-bottom: 20px;
     }
 </style>
