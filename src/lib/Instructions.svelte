@@ -15,14 +15,24 @@
                 'content': import('../content/en/home.md?raw'),
                 'video': '0cdbb2992743be323c299b86c9ec560f',
             },
-            // other English pages...
+            'criteria': {
+                'content': import('../content/en/criteria.md?raw'),
+            },
+            'acceptance': {
+                'content': import('../content/en/acceptance.md?raw'),
+            },
         },
         'hi' : {
             'home': {
                 'content': import('../content/hi/home.md?raw'),
                 'video': '4f322d1972ac2994e2dedf7aeffc0866',
             },
-            // other Hindi pages...
+            'criteria': {
+                'content': import('../content/hi/criteria.md?raw'),
+            },
+            'acceptance': {
+                'content': import('../content/hi/acceptance.md?raw'),
+            },
         },
     }
 
@@ -73,7 +83,9 @@
     export async function displayPage(page, lang) {
         let result = await content[lang][page].content;
         pageContent = marked((await result).default);
-        pageVideo = content[lang][page].video;
+        pageVideo = content[lang][page].video || null;
+
+        console.log(pageVideo);
     }
 </script>
 
@@ -87,14 +99,16 @@
 				<div class="links">
 					{#if interfaceText[lang]}
 						<a href="#instructions" on:click|preventDefault={() => displayPage('home', lang)}>{interfaceText[lang]['home']}</a>
-						<a href="#instructions" on:click|preventDefault={() => displayPage('criteria', lang)}>{interfaceText[lang]['criteria']}</a>
-						<a href="#acceptance" on:click|preventDefault={() => displayPage('criteria', lang)}>{interfaceText[lang]['acceptance']}</a>
+						<a href="#criteria" on:click|preventDefault={() => displayPage('criteria', lang)}>{interfaceText[lang]['criteria']}</a>
+						<a href="#acceptance" on:click|preventDefault={() => displayPage('acceptance', lang)}>{interfaceText[lang]['acceptance']}</a>
 					{/if}
 				</div>
 				<button class="close-button" on:click|preventDefault|stopPropagation={closeModal}>{interfaceText[lang]['close']}</button>
 			</div>
 			{#if pageVideo}
-				<Video video={pageVideo} />
+				<div class="video-wrapper">
+					<Video video={pageVideo} />
+				</div>
 			{/if}
 			<div class="content" use:interceptNavigation>
 				{@html pageContent}
@@ -198,8 +212,12 @@
                 }
             }
 
+			.video-wrapper {
+				margin-bottom: 20px;
+			}
+
 			.content {
-				padding: 20px;
+				padding: 0 20px 20px 20px;
 
 				:global(:first-child) {
 					margin-top: 0;
