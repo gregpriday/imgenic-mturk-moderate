@@ -17,6 +17,7 @@
             },
             'criteria': {
                 'content': import('../content/en/criteria.md?raw'),
+                'video': '630d9c2ed7723d38f2d2dd8289ca0356',
             },
             'acceptance': {
                 'content': import('../content/en/acceptance.md?raw'),
@@ -29,6 +30,7 @@
             },
             'criteria': {
                 'content': import('../content/hi/criteria.md?raw'),
+                'video': 'c551124e9baec6b24de2d71ebd202da5',
             },
             'acceptance': {
                 'content': import('../content/hi/acceptance.md?raw'),
