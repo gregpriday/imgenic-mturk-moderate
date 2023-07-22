@@ -63,7 +63,7 @@
     .image-gallery {
         display: flex;
         overflow-x: scroll;
-        padding: 20px 0 0 0;
+        padding: 20px 10px 0 10px;
 
         // Disable selected style
         &:focus {

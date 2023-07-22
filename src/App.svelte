@@ -14,6 +14,8 @@
     let hit = JSON.parse(document.getElementById('hit-data').value);
     let selected = 0;
 
+    let instructions;
+
     function setRatingsInput(){
         let ratingsInput = document.getElementById('ratings-input');
         let ratings = {};
@@ -106,7 +108,7 @@
                 </div>
                 <span>{doneCount}/{totalCount} images rated</span>
             </div>
-            <button class="button-primary" type="submit">Instructions</button>
+            <button class="button-primary" on:click|preventDefault={() => {instructions.openModal()}}>Instructions</button>
         </div>
     </div>
 
@@ -130,6 +132,8 @@
     </div>
 
     <ImageGallery {hit} {selected} {selectImage} />
+
+    <Instructions bind:this={instructions} />
 </div>
 
 <style lang="scss">
