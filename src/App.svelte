@@ -60,6 +60,8 @@
 
     onMount(() => {
         // Load the hit data
+        console.log(document.getElementById('hit-data').value);
+
         hit = JSON.parse(document.getElementById('hit-data').value);
         console.log(hit);
 
