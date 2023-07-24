@@ -89,9 +89,10 @@
 
     let isJobComplete = false;
     let doneCount = 0;
-    let totalCount = hit ? hit.length : 30;
+    let totalCount = 1;
     $: if (hit) {
         setRatingsInput();
+        totalCount = hit.length;
         doneCount = imagesDoneCount();
         isJobComplete = (doneCount === totalCount);
     }
