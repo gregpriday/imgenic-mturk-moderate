@@ -77,17 +77,16 @@
 		document.body.style.overflow = 'auto';
     }
 
-    export function openModal() {
+    export function openModal(page = null) {
         displayed = true;
 		document.body.style.overflow = 'hidden';
+        if(page) displayPage(page, lang);
 	}
 
     export async function displayPage(page, lang) {
         let result = await content[lang][page].content;
         pageContent = marked((await result).default);
         pageVideo = content[lang][page].video || null;
-
-        console.log(pageVideo);
     }
 </script>
 

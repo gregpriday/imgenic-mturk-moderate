@@ -127,6 +127,11 @@
                         </button>
                         <div>
                             <Rating rating="{hit[selected].rating ?? null}" onSelected={(newRating) => updateRating(selected, newRating)} />
+
+                            <small class="instructions">
+                                Read our <a href="#criteria" on:click|preventDefault={() => {instructions.openModal('criteria')}}>ratings guide</a> for more information.
+                            </small>
+
                         </div>
                         <button class="navigation-button" aria-label="Next image" on:click={navigateRight}>
                             {@html rightSvg}
@@ -212,6 +217,17 @@
 
             &:focus {
                 outline: none;
+            }
+        }
+
+        .instructions {
+            display: block;
+            font-size: 12px;
+            margin-top: 8px;
+            color: #666;
+
+            a {
+                color: $primary-color;
             }
         }
     }
