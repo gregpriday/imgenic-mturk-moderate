@@ -1,5 +1,5 @@
 <script>
-    import { onMount } from 'svelte';
+    import {beforeUpdate, onMount} from 'svelte';
     import Video from './Video.svelte';
     import { marked } from 'marked';
     import LanguageSelector from "./LanguageSelector.svelte";
@@ -88,6 +88,24 @@
         pageContent = marked((await result).default);
         pageVideo = content[lang][page].video || null;
     }
+
+    // Add this within the script
+    let escapeKeyListener;
+
+    onMount(() => {
+        escapeKeyListener = (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        };
+        window.addEventListener('keyup', escapeKeyListener);
+    });
+
+    beforeUpdate(() => {
+        if (!displayed) {
+            window.removeEventListener('keyup', escapeKeyListener);
+        }
+    });
 </script>
 
 {#if displayed}
@@ -115,7 +133,7 @@
 				{@html pageContent}
 			</div>
 		</div>
-		<div class="overlay"></div>
+		<div class="overlay" on:click={closeModal}></div>
 	</div>
 {/if}
 
