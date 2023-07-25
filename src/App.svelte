@@ -129,7 +129,8 @@
                             <Rating rating="{hit[selected].rating ?? null}" onSelected={(newRating) => updateRating(selected, newRating)} />
 
                             <small class="instructions">
-                                Read our <a href="#criteria" on:click|preventDefault={() => {instructions.openModal('criteria')}}>ratings guide</a> for more information.
+                                Your task is to scrutinize AI-generated images, ranging from the overtly artificial to the nearly indistinguishable, and rate them based on their level of realism and quality.
+                                <a href="#criteria" on:click|preventDefault={() => {instructions.openModal('criteria')}}>Read More</a>
                             </small>
 
                         </div>
@@ -204,7 +205,7 @@
     .input-wrapper {
         display: flex;
         justify-content: space-between;
-        background: #333;
+        background: #222;
         padding: 10px;
         align-items: center;
 
@@ -222,9 +223,9 @@
 
         .instructions {
             display: block;
-            font-size: 12px;
+            font-size: 14px;
             margin-top: 8px;
-            color: #666;
+            color: #999;
 
             a {
                 color: $primary-color;

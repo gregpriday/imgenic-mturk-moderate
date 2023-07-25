@@ -17,6 +17,7 @@
     "vite-plugin-singlefile": "^0.13.5"
   },
   "dependencies": {
-    "node-sass": "^9.0.0"
+    "node-sass": "^9.0.0",
+    "tippy.js": "^6.3.7"
   }
 }

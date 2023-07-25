@@ -1,5 +1,7 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
+    import tippy from 'tippy.js';
+    import 'tippy.js/dist/tippy.css'; // don't forget to import the CSS
 
     // SVG assets
     import cancelSvg from '../assets/cancel.svg?raw';
@@ -10,6 +12,15 @@
 
     // The current rating, null means that nothing is selected
     export let rating = null;
+
+    const descriptions = [
+        "Remove images with big mistakes, like bad distortions or fake watermarks/signatures. It's easy to tell they're not real.",
+        "Rate as 1 if the image looks a bit wrong but has some real-looking parts. This might be due to strange body parts or weird looking objects.",
+        "Give a 2 if at first glance the image seems fine, but you spot some mistakes when you look closer. This could be due to weird interactions or missing parts.",
+        "A 3-star image has very small mistakes that are hard to see. Or it's just an average, unexciting image that lacks creativity.",
+        "Rate as 4 if the image looks almost like a real artwork/photo, but has a few minor mistakes. The image should look generally well-composed and realistic.",
+        "Only give a 5 if the image is extraordinary, looking like a professional artwork or real photo. It should be exciting and interesting. Only for the very best images."
+    ];
 
     // Function to set a new rating
     const setRating = (newRating) => {
@@ -25,6 +36,12 @@
 
     onMount(() => {
         window.addEventListener('keydown', handleKeyDown);
+        descriptions.forEach((description, i) => {
+            const tooltip = document.getElementById(`tooltip-${i}`);
+            tippy(tooltip, {
+                content: description,
+            });
+        });
     });
 
     onDestroy(() => {
@@ -34,12 +51,16 @@
 
 <div class="rating-wrapper">
 	<div class="rating-container">
-		<div class="rating-item" on:click={() => setRating(0)} class:highlighted={rating === 0}><span class="icon icon-cancel">{@html cancelSvg}</span></div>
-		<div class="rating-item" on:click={() => setRating(1)} class:highlighted={rating >= 1}><span class="icon">{@html starSvg}</span></div>
-		<div class="rating-item" on:click={() => setRating(2)} class:highlighted={rating >= 2}><span class="icon">{@html starSvg}</span></div>
-		<div class="rating-item" on:click={() => setRating(3)} class:highlighted={rating >= 3}><span class="icon">{@html starSvg}</span></div>
-		<div class="rating-item" on:click={() => setRating(4)} class:highlighted={rating >= 4}><span class="icon">{@html starSvg}</span></div>
-		<div class="rating-item" on:click={() => setRating(5)} class:highlighted={rating >= 5}><span class="icon">{@html starSvg}</span></div>
+		<div class="rating-item" on:click={() => setRating(0)} class:highlighted={rating === 0} id="tooltip-0">
+			<span class="icon icon-cancel">{@html cancelSvg}</span>
+		</div>
+		{#each descriptions as description, i (i)}
+			{#if i > 0}
+				<div class="rating-item" on:click={() => setRating(i)} class:highlighted={rating >= i} id={`tooltip-${i}`}>
+					<span class="icon">{@html starSvg}</span>
+				</div>
+			{/if}
+		{/each}
 	</div>
 </div>
 
