@@ -3,111 +3,73 @@
 
     export let src = '';
 
-    let glass = null;
     let zoom = 2.5;
-    let glassSize = 350;
     let imgRef;
+    let containerRef;
 
     onMount(() => {
-        imgRef.addEventListener("mouseover", createLoupe);
-        imgRef.addEventListener("mouseout", removeLoupe);
+        containerRef.addEventListener("mousemove", moveZoom);
 
         return () => {
-            imgRef.removeEventListener("mouseover", createLoupe);
-            imgRef.removeEventListener("mouseout", removeLoupe);
+            containerRef.removeEventListener("mousemove", moveZoom);
         }
     });
 
-    function createLoupe() {
-        if (glass) {
-            removeLoupe();
-        }
-
-        const img = imgRef;
-        glass = document.createElement("DIV");
-        glass.setAttribute("class", "img-magnifier-glass");
-        glass.style.width = glassSize + "px";
-        glass.style.height = glassSize + "px";
-        glass.style.border = '3px solid #000';
-        glass.style.borderRadius = '50%';
-        glass.style.cursor = 'none';
-        glass.style.position = 'absolute';
-        glass.style.pointerEvents = 'none';
-        glass.style.zIndex = '9999';
-        glass.style.backgroundImage = "url('" + img.src + "')";
-        glass.style.backgroundRepeat = "no-repeat";
-        glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
-        glass.style.backgroundColor = "white";
-        glass.style.boxShadow = "0 0 5px 5px rgba(0, 0, 0, 0.2)";
-
-        img.parentElement.insertBefore(glass, img);
-
-        img.addEventListener("mousemove", moveMagnifier);
-        img.addEventListener("touchmove", moveMagnifier);
-    }
-
-    function removeLoupe() {
-        if (!glass) return;
-        imgRef.removeEventListener("mousemove", moveMagnifier);
-        imgRef.removeEventListener("touchmove", moveMagnifier);
-        glass.remove();
-        glass = null;
-    }
-
-    function moveMagnifier(e) {
-        const img = imgRef;
-        const w = glass.offsetWidth / 2;
-        const h = glass.offsetHeight / 2;
-
+    function moveZoom(e) {
         e.preventDefault();
-
         let pos = getCursorPos(e);
         let x = pos.x;
         let y = pos.y;
 
-        glass.style.left = (x - w) + "px";
-        glass.style.top = (y - h) + "px";
+        const xPercent = (x / containerRef.offsetWidth) * 100;
+        const yPercent = (y / containerRef.offsetHeight) * 100;
 
-        glass.style.backgroundPosition = (-((x * zoom) - w)) + "px " + (-((y * zoom) - h)) + "px";
+        imgRef.style.transformOrigin = `${xPercent}% ${yPercent}%`;
     }
 
     function getCursorPos(e) {
-        const img = imgRef;
         let a, x = 0, y = 0;
         e = e || window.event;
-        a = img.getBoundingClientRect();
-        x = e.clientX - a.left;
-        y = e.clientY - a.top;
+        a = containerRef.getBoundingClientRect();
+        x = e.pageX - a.left;
+        y = e.pageY - a.top;
 
         return {x, y};
     }
 </script>
 
 <div class="tool-wrapper">
-    <div class="image-container">
-        <img bind:this={imgRef} src={src} alt="Selected Candidate Image" class="candidate-image">
+    <div class="image-container" bind:this={containerRef}>
+        <img bind:this={imgRef} src={src} alt="Selected Candidate Image" class="candidate-image" style="--scale:{zoom}">
     </div>
 </div>
 
 <style lang="scss">
     .tool-wrapper {
-        height: 500px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #e0e0e0;
-        padding: 15px 0;
+        height: 640px;
     }
 
     .image-container {
-        display: inline-block;
+        background: #999;
+        display: flex;
         position: relative;
+        overflow: hidden;
+        padding: 25px;
+
+        align-items: center;
+        justify-content: center;
 
         img {
-            max-height: 500px;
+            display: inline-block;
+            height: auto;
             width: auto;
-            cursor: none;
-            display: block;
+
+            max-width: 100%;
+            max-height: 600px;
+        }
+
+        &:hover img{
+            transform: scale(var(--scale));
         }
     }
 </style>

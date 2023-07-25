@@ -3,14 +3,9 @@
     import {generateCloudFlareUrl} from "./lib/util.js";
     import ImageLoupe from "./lib/ImageLoupe.svelte";
     import Instructions from "./lib/Instructions.svelte";
-    import Rating from "./lib/Rating.svelte";
     import ImageGallery from "./lib/ImageGallery.svelte";  // Import the new component
 
-    // SVG Assets
-    import leftSvg from './assets/left.svg?raw';
-    import rightSvg from './assets/right.svg?raw';
-    import RatingHistogram from "./lib/RatingHistogram.svelte";
-
+    const targetCount = 4;
     let hit = null;
 
     let selected = 0;
@@ -18,38 +13,15 @@
 
     function setRatingsInput(){
         let ratingsInput = document.getElementById('ratings-input');
-        let ratings = {};
-
-        // For any images that have been rated, add them to the ratings object {id: rating}
-        for (let i = 0; i < hit.length; i++) {
-            if (hit[i].rating !== null && hit[i].rating !== undefined) {
-                ratings[hit[i].id] = hit[i].rating;
-            }
-        }
-
-        // Set the ratings input value to the ratings object
-        ratingsInput.value = JSON.stringify(ratings);
+        ratingsInput.value = JSON.stringify(hit.filter(image => image.selected).map(image => image.id));
     }
 
     const selectImage = (index) => {
+        if(selected === index){
+            toggleSelected(index);
+        }
         selected = index;
     }
-
-    const navigateLeft = () => {
-        selected = (selected - 1 + hit.length) % hit.length;
-    }
-
-    const navigateRight = () => {
-        selected = (selected + 1) % hit.length;
-    }
-
-    const handleKeyDown = (event) => {
-        if (event.key === 'ArrowRight') {
-            navigateRight();
-        } else if (event.key === 'ArrowLeft') {
-            navigateLeft();
-        }
-    };
 
     function preloadImages() {
         hit.forEach(image => {
@@ -61,30 +33,22 @@
     onMount(() => {
         // Load the hit data
         hit = JSON.parse(document.getElementById('hit-data').value);
-        window.addEventListener('keydown', handleKeyDown);
         preloadImages();
     });
 
-    onDestroy(() => {
-        window.removeEventListener('keydown', handleKeyDown);
-    });
-
-    function updateRating(index, newRating) {
-        hit[index].rating = newRating;
-        // trigger Svelte reactivity by assigning to the same variable
-        hit = hit;
-
-        navigateRight();
+    function imagesDoneCount(){
+        return hit.filter(image => image.selected).length;
     }
 
-    function imagesDoneCount(){
-        let count = 0;
-        for (let i = 0; i < hit.length; i++) {
-            if (hit[i].rating !== null && hit[i].rating !== undefined) {
-                count++;
-            }
+    export function toggleSelected(index) {
+        if (!hit[index].selected && imagesDoneCount() >= targetCount) {
+            // If the image is not selected, and we've already reached the maximum number of selected images,
+            // don't allow the image to be selected.
+            return;
         }
-        return count;
+
+        hit[index].selected = !hit[index].selected;
+        hit = [...hit];
     }
 
     let isJobComplete = false;
@@ -94,7 +58,7 @@
         setRatingsInput();
         totalCount = hit.length;
         doneCount = imagesDoneCount();
-        isJobComplete = (doneCount === totalCount);
+        isJobComplete = (doneCount === targetCount);
     }
 </script>
 
@@ -102,48 +66,27 @@
     <div class="mturk-wrapper">
 
         <div class="progress-wrapper">
-            <div class="progress-bar-wrapper"><div class="progress-bar" style="width: {doneCount/totalCount * 100}%"></div></div>
+            <div class="progress-bar-wrapper"><div class="progress-bar" style="width: {doneCount/targetCount * 100}%"></div></div>
 
             <div class="progress-parts">
                 <!-- Display the submit button if the job is complete-->
-                <button class="button-primary" type="submit" disabled={!isJobComplete}>Submit Ratings</button>
+                <button class="button" type="submit" disabled={!isJobComplete}>Submit Selection</button>
                 <div class="progress-ratings">
-                    <div class="histogram-wrapper">
-                        <RatingHistogram hit={hit} />
-                    </div>
-                    <span>{doneCount}/{totalCount} images rated</span>
+                    <span>{doneCount}/{targetCount} images selected</span>
                 </div>
-                <button class="button-primary" on:click|preventDefault={() => {instructions.openModal()}}>Instructions</button>
+                <button class="button" on:click|preventDefault={() => {instructions.openModal()}}>Instructions</button>
             </div>
         </div>
 
         <div class="content-wrapper">
             <div class="image-wrapper">
-                {#key selected}
-                    <ImageLoupe src={generateCloudFlareUrl(hit[selected].image, {quality: 60})} />
-                    <div class="input-wrapper">
-                        <button class="navigation-button" aria-label="Previous image" on:click={navigateLeft}>
-                            {@html leftSvg}
-                        </button>
-                        <div>
-                            <Rating rating="{hit[selected].rating ?? null}" onSelected={(newRating) => updateRating(selected, newRating)} />
-
-                            <small class="instructions">
-                                Your task is to scrutinize AI-generated images, ranging from the overtly artificial to the nearly indistinguishable, and rate them based on their level of realism and quality.
-                                <a href="#criteria" on:click|preventDefault={() => {instructions.openModal('criteria')}}>Read More</a>
-                            </small>
-
-                        </div>
-                        <button class="navigation-button" aria-label="Next image" on:click={navigateRight}>
-                            {@html rightSvg}
-                        </button>
-                    </div>
+                {#key hit[selected].image}
+                    <ImageLoupe src={hit[selected].image} />
                 {/key}
             </div>
-        </div>
-
-        <div class="gallery-wrapper">
-            <ImageGallery {hit} {selected} {selectImage} />
+            <div class="gallery-wrapper">
+                <ImageGallery bind:hit={hit} {selectImage} />
+            </div>
         </div>
 
     </div>
@@ -159,13 +102,20 @@
     }
 
     .content-wrapper {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-    }
+        // Display as a grid
+        display: grid;
+        grid-template-columns: 1fr 1fr;
 
-    .image-wrapper {
-        flex: 1;
+        .image-wrapper {
+            flex: 1;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-wrapper {
+            flex: 1;
+        }
     }
 
     .progress-wrapper {
@@ -238,7 +188,7 @@
         padding: 10px;
     }
 
-    .button-primary {
+    .button {
         margin: 10px;
         color: #fff;
         background-color: $primary-color;
@@ -256,6 +206,19 @@
 
         &:active {
             background-color: darken($primary-color, 10%);
+        }
+
+        &.button-secondary {
+            background-color: $secondary-color;
+            color: #fff;
+
+            &:hover {
+                background-color: lighten($secondary-color, 10%);
+            }
+
+            &:active {
+                background-color: darken($secondary-color, 10%);
+            }
         }
 
         &:focus {

@@ -1,58 +1,26 @@
 <script>
     import {generateCloudFlareUrl} from "./util.js";
+    import {onMount, onDestroy} from "svelte";
 
-    import cancelSvg from '../assets/cancel.svg?raw';
-    import starSvg from '../assets/star.svg?raw';
-    import rightSvg from '../assets/right.svg?raw';
+    import checkSvg from '../assets/check.svg?raw';
 
     export let hit;
-    export let selected;
-    export let selectImage;
-    let gallery;
-
-    // Automatically adjust the scroll when a new image is selected
-    $: if (gallery) {
-        const thumbnails = gallery.getElementsByClassName('image-thumbnail');
-        if (thumbnails && thumbnails[selected]) {
-            const scrollPosition = thumbnails[selected].getBoundingClientRect().left - gallery.getBoundingClientRect().left + gallery.scrollLeft;
-            gallery.scroll({
-                left: scrollPosition - gallery.clientWidth / 2 + thumbnails[selected].clientWidth / 2,
-                behavior: 'smooth'
-            });
-        }
-    }
-
-    const handleKeyDown = (event) => {
-        if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
-            event.preventDefault();
-        }
-    };
+    export let selectImage = (index) => {};
+    let viewing = null;
 </script>
 
-<div class="image-gallery" bind:this={gallery} on:keydown={handleKeyDown} tabindex="0">
+<div class="image-gallery">
 	{#each hit as image, index (image.id)}
-		<div class="image-thumbnail {(image.rating !== null && image.rating !== undefined) ? 'rated' : ''}" on:click={() => selectImage(index)}>
+		<div class="image-thumbnail {index === viewing ? 'image-viewing' : ''}" on:click={() => {selectImage(index); viewing = index;}} data-index={index}>
 			<img
-				src="{generateCloudFlareUrl(image.image, {width: 96, height: 96, fit: 'crop'})}"
-				srcset="{generateCloudFlareUrl(image.image, {width: 192, height: 192, fit: 'crop'})} 2x"
-				width="96"
-				height="96"
+					src="{generateCloudFlareUrl(image.image, {width: 128, height: 128, fit: 'crop'})}"
+					srcset="{generateCloudFlareUrl(image.image, {width: 256, height: 256, fit: 'crop'})} 2x"
+					width="128"
+					height="128"
 			>
-			{#if image.rating !== null && image.rating !== undefined}
-				{#if image.rating === 0}
-					<div class="rating-overlay cancel rating-{image.rating}">
-						{@html cancelSvg}
-					</div>
-				{:else}
-					<div class="rating-overlay rating rating-{image.rating}">
-						<span class="rating-value">{image.rating}</span>
-					</div>
-				{/if}
-			{/if}
-
-			{#if selected === index}
-				<div class="arrow">
-					{@html rightSvg}
+			{#if image.selected}
+				<div class="checked">
+					{@html checkSvg}
 				</div>
 			{/if}
 		</div>
@@ -62,10 +30,10 @@
 <style lang="scss">
     .image-gallery {
         display: flex;
-        overflow: hidden;
-        padding: 20px 10px 0 10px;
+		flex-wrap: wrap;
+		justify-content: center;
+		padding: 10px;
 
-        // Disable selected style
         &:focus {
             outline: none;
         }
@@ -74,67 +42,44 @@
     .image-thumbnail {
         position: relative;
         cursor: pointer;
-		margin-right: 6px;
 
-		&:last-child {
-			margin-right: 0;
-        }
+		// Disable select
+		-webkit-touch-callout: none; /* iOS Safari */
+		-webkit-user-select: none; /* Safari */
+		-moz-user-select: none; /* Old versions of Firefox */
+
 
         img {
 			display: block;
-			width: 96px;
-			height: 96px;
+			width: 140px;
+			height: 140px;
         }
 
-        .rating-overlay {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.75);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-			font-size: 1.5em;
-			font-weight: 500;
-			line-height: 1em;
+		&:hover img {
+			filter: brightness(1.2);
+		}
 
-			svg {
-				width: 16px !important;
-				height: 16px !important;
+		&.image-viewing img {
+			filter: brightness(1.8);
+        }
+
+		.checked {
+			background: rgba($success-color, 0.8);
+            position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			display: flex;
+
+			justify-content: center;
+			align-items: center;
+
+			:global(svg) {
+				width: 32px;
+				height: 32px;
+				stroke: white;
 			}
-
-            .rating-value {
-                margin-right: 10px;
-            }
-
-            @for $i from 0 through 5 {
-                &.rating-#{$i} {
-                    color: mix($primary-color, #FFFFFF, $i * 20%);
-                }
-            }
-
-            &.cancel {
-                :global(svg) {
-                    fill: $cancel-color;
-                }
-            }
-        }
-
-        .arrow {
-            position: absolute;
-            top: -22px;  // Adjust this value to move the arrow up or down
-            transform: rotate(90deg);
-			left: 50%;
-			margin-left: -10px;
-
-            :global(svg) {
-                width: 20px;
-                height: 20px;
-				stroke: #666;
-            }
-        }
+		}
     }
 </style>
