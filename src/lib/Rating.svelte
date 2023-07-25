@@ -19,7 +19,7 @@
         "Give a 2 if at first glance the image seems fine, but you spot some mistakes when you look closer. This could be due to weird interactions or missing parts.",
         "A 3-star image has very small mistakes that are hard to see. Or it's just an average, unexciting image that lacks creativity.",
         "Rate as 4 if the image looks almost like a real artwork/photo, but has a few minor mistakes. The image should look generally well-composed and realistic.",
-        "Only give a 5 if the image is extraordinary, looking like a professional artwork or real photo. It should be exciting and interesting. Only for the very best images."
+        "Only give a 5 if the image is extraordinary, looking like a professional artwork or real photo. It should be exciting and interesting. Only for the 1-2 very best images."
     ];
 
     // Function to set a new rating

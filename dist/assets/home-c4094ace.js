@@ -16,7 +16,7 @@ Next to the "Remove" button, you'll find the rating section. Here, you can rate 
 
 ### Step 4: Viewing Progress
 
-To keep track of your progress, take a look at the top of the interface. You'll see a count displaying the number of images you've rated out of the total 28 images. This count will increase as you continue rating images.
+To keep track of your progress, take a look at the top of the interface. You'll see a count displaying the number of images you've rated out of the total 24 images. This count will increase as you continue rating images.
 
 ### Step 5: Understanding Ratings Distribution
 
@@ -28,7 +28,7 @@ If you ever need a refresher on the instructions, you can easily access them by 
 
 ### Step 7: Submitting Ratings
 
-Once you've completed rating all 28 images, it's time to submit your ratings. Click the "Submit Ratings" button at the top left corner of the interface to finalize your evaluations.
+Once you've completed rating all 24 images, it's time to submit your ratings. Click the "Submit Ratings" button at the top left corner of the interface to finalize your evaluations.
 
 ### Step 8: Navigating Images
 
