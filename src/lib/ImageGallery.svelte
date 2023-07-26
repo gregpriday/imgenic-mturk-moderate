@@ -13,10 +13,10 @@
 	{#each hit as image, index (image.id)}
 		<div class="image-thumbnail {index === viewing ? 'image-viewing' : ''}" on:click={() => {selectImage(index); viewing = index;}} data-index={index}>
 			<img
-					src="{generateCloudFlareUrl(image.image, {width: 128, height: 128, fit: 'crop'})}"
-					srcset="{generateCloudFlareUrl(image.image, {width: 256, height: 256, fit: 'crop'})} 2x"
+					src="{generateCloudFlareUrl(image.image, {width: 148, height: 112, fit: 'crop'})}"
+					srcset="{generateCloudFlareUrl(image.image, {width: 148*2, height: 112*2, fit: 'crop'})} 2x"
 					width="128"
-					height="128"
+					height="96"
 			>
 			{#if image.selected}
 				<div class="checked">
@@ -51,8 +51,8 @@
 
         img {
 			display: block;
-			width: 140px;
-			height: 140px;
+			width: 148px;
+			height: 112px;
         }
 
 		&:hover img {

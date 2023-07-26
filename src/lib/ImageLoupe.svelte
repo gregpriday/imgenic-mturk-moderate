@@ -46,7 +46,7 @@
 
 <style lang="scss">
     .tool-wrapper {
-        height: 640px;
+        height: 840px;
     }
 
     .image-container {
@@ -65,7 +65,7 @@
             width: auto;
 
             max-width: 100%;
-            max-height: 600px;
+            max-height: 800px;
         }
 
         &:hover img{

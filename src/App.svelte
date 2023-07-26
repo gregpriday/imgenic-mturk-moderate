@@ -34,7 +34,6 @@
         // Load the hit data
         hit = JSON.parse(document.getElementById('hit-data').value);
         hit.sort(() => Math.random() - 0.5);
-
         preloadImages();
     });
 
@@ -66,7 +65,7 @@
 {#if hit}
     <div class="mturk-wrapper">
 
-        <div class="progress-wrapper">
+        <div class="progress">
             <div class="progress-bar-wrapper"><div class="progress-bar" style="width: {doneCount/targetCount * 100}%"></div></div>
 
             <div class="progress-parts">
@@ -79,22 +78,21 @@
             </div>
         </div>
 
-        <div class="content-wrapper">
-            <div class="image-wrapper">
-                {#key hit[selected].image}
-                    <ImageLoupe src={hit[selected].image} />
-                {/key}
+        <div class="gallery">
+            <div class="instructions">
+                <p>
+                    Your job is to select the 4 <a href="#criteria" on:click|preventDefault={() => {instructions.openModal('criteria')}}>best images</a> from this batch.
+                    Click an image to view it in full, then click it again to select it.
+                    Once you've chosen the 4 best images, click <strong>Submit Selection</strong>.
+                </p>
             </div>
-            <div class="gallery-wrapper">
-                <div class="instructions">
-                    <p>
-                        Your job is to select the 4 <a href="#criteria" on:click|preventDefault={() => {instructions.openModal('criteria')}}>best images</a> from this batch.
-                        Click an image to view it in full, then click it again to select it.
-                        Once you've chosen the 4 best images, click <strong>Submit Selection</strong>.
-                    </p>
-                </div>
-                <ImageGallery bind:hit={hit} {selectImage} />
-            </div>
+            <ImageGallery bind:hit={hit} {selectImage} />
+        </div>
+
+        <div class="current-image">
+            {#key hit[selected].image}
+                <ImageLoupe src={hit[selected].image} />
+            {/key}
         </div>
 
     </div>
@@ -109,41 +107,37 @@
         height: 100vh;
     }
 
-    .content-wrapper {
-        // Display as a grid
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+    .image-wrapper {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+    }
 
-        .image-wrapper {
-            flex: 1;
+    .gallery {
+        .instructions {
+            display: block;
             padding: 10px;
-            display: flex;
-            flex-direction: column;
-        }
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #111;
+            background: #eee;
 
-        .gallery-wrapper {
-            flex: 1;
+            p {
+                margin: 0;
+            }
 
-            .instructions {
-                display: block;
-                padding: 10px;
-                margin-bottom: 10px;
-                font-size: 14px;
-                color: #111;
-                background: #eee;
-
-                p {
-                    margin: 0;
-                }
-
-                a {
-                    color: $secondary-color;
-                }
+            a {
+                color: $secondary-color;
             }
         }
     }
 
-    .progress-wrapper {
+    .current-image {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .progress {
         background: #333;
         text-align: center;
         color: white;
