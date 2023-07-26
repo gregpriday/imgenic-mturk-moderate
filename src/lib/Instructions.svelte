@@ -13,27 +13,12 @@
         'en' : {
             'home': {
                 'content': import('../content/en/home.md?raw'),
-                'video': '0cdbb2992743be323c299b86c9ec560f',
             },
             'criteria': {
                 'content': import('../content/en/criteria.md?raw'),
-                'video': '630d9c2ed7723d38f2d2dd8289ca0356',
             },
             'acceptance': {
                 'content': import('../content/en/acceptance.md?raw'),
-            },
-        },
-        'hi' : {
-            'home': {
-                'content': import('../content/hi/home.md?raw'),
-                'video': '4f322d1972ac2994e2dedf7aeffc0866',
-            },
-            'criteria': {
-                'content': import('../content/hi/criteria.md?raw'),
-                'video': 'c551124e9baec6b24de2d71ebd202da5',
-            },
-            'acceptance': {
-                'content': import('../content/hi/acceptance.md?raw'),
             },
         },
     }
@@ -112,9 +97,6 @@
 	<div class="modal-wrapper displayed">
 		<div class="modal">
 			<div class="top-bar">
-				<div class="lang-selector">
-					<LanguageSelector bind:value={lang} />
-				</div>
 				<div class="links">
 					{#if interfaceText[lang]}
 						<a href="#instructions" on:click|preventDefault={() => displayPage('home', lang)}>{interfaceText[lang]['home']}</a>

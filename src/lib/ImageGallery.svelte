@@ -60,7 +60,8 @@
 		}
 
 		&.image-viewing img {
-			filter: brightness(1.8);
+			// Increase brightness and lower contrast
+			filter: contrast(0.7) brightness(1.8);
         }
 
 		.checked {

@@ -33,6 +33,8 @@
     onMount(() => {
         // Load the hit data
         hit = JSON.parse(document.getElementById('hit-data').value);
+        hit.sort(() => Math.random() - 0.5);
+
         preloadImages();
     });
 
@@ -50,7 +52,6 @@
         hit[index].selected = !hit[index].selected;
         hit = [...hit];
     }
-
     let isJobComplete = false;
     let doneCount = 0;
     let totalCount = 1;
@@ -85,6 +86,13 @@
                 {/key}
             </div>
             <div class="gallery-wrapper">
+                <div class="instructions">
+                    <p>
+                        Your job is to select the 4 <a href="#criteria" on:click|preventDefault={() => {instructions.openModal('criteria')}}>best images</a> from this batch.
+                        Click an image to view it in full, then click it again to select it.
+                        Once you've chosen the 4 best images, click <strong>Submit Selection</strong>.
+                    </p>
+                </div>
                 <ImageGallery bind:hit={hit} {selectImage} />
             </div>
         </div>
@@ -115,6 +123,23 @@
 
         .gallery-wrapper {
             flex: 1;
+
+            .instructions {
+                display: block;
+                padding: 10px;
+                margin-bottom: 10px;
+                font-size: 14px;
+                color: #111;
+                background: #eee;
+
+                p {
+                    margin: 0;
+                }
+
+                a {
+                    color: $secondary-color;
+                }
+            }
         }
     }
 

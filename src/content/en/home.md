@@ -1,37 +1,29 @@
-## Tutorial: How to Use our Image Rating System
+## Tutorial: How to Use our Image Selection System
 
-Hello, and welcome to our tutorial on how to use our image rating system. In this guide, we'll walk you through the steps of efficiently rating images using our user-friendly interface.
+Hello, and welcome to our tutorial on how to use our image selection system. In this guide, we'll walk you through the steps of selecting the top images from our user-friendly interface.
 
-### Step 1: Zooming In on Images
+### Step 1: Previewing Images
 
-The major feature of our rating system is the ability to get a closer look at specific parts of the image. To do this, simply move your mouse over the image. As you hover, a zoom effect will appear, allowing you to inspect different areas with ease. This feature enhances your ability to rate images accurately.
+Our system displays a grid of images for you to review. You can click on any image to view a larger version of it. This should help you get a better look and feel of each image.
 
-### Step 2: Removing Images
+### Step 2: Zooming In on Images
 
-In some cases, an image might not meet the necessary qualifications for rating. If that's the case, you can select the "Remove" button located just below the image. This option indicates that the image doesn't qualify for rating. We'll provide more information on qualification criteria in another video, so stay tuned for that.
+Want to see finer details? No problem. Just move your mouse over the larger image, and it will zoom in to let you see up close. This way, you can carefully check all the details and make a more informed decision.
 
-### Step 3: Rating Images
+### Step 3: Selecting Images
 
-Next to the "Remove" button, you'll find the rating section. Here, you can rate the image using a scale from one to five stars. Simply choose the number of stars that best represents your assessment of the image. Once you rate it, the system will automatically move you to the next image for evaluation.
+If you think an image is one of the top four, click on it again in the grid to select it. It will highlight with green and a white check mark. Remember, you can only select up to four images from the batch.
 
-### Step 4: Viewing Progress
+### Step 4: Deselecting Images
 
-To keep track of your progress, take a look at the top of the interface. You'll see a count displaying the number of images you've rated out of the total 24 images. This count will increase as you continue rating images.
+Changed your mind? Don't worry, just click the selected image again to deselect it.
 
-### Step 5: Understanding Ratings Distribution
+### Step 5: Viewing Your Selection
 
-Next to the count, you'll find a histogram. This chart shows the number of ratings for each level: from "Removed" (indicating images that don't qualify) to one to five stars (indicating the rating you gave each image).
+At any point, you can check how many images you've selected so far in the top bar. This will help you manage your picks and make sure you don't go over the limit of four images.
 
-### Step 6: Accessing Instructions
+### Step 6: Submitting Your Selection
 
-If you ever need a refresher on the instructions, you can easily access them by clicking the "Instructions" button located in the top right corner of the interface.
+Once you're happy with your selection of four images, press the "Submit Selection" button to finalize your choices.
 
-### Step 7: Submitting Ratings
-
-Once you've completed rating all 24 images, it's time to submit your ratings. Click the "Submit Ratings" button at the top left corner of the interface to finalize your evaluations.
-
-### Step 8: Navigating Images
-
-To move between images during the rating process, use the left and right arrows located next to the rating section. These arrows allow you to easily navigate through the set of images.
-
-And that's it! Our simple image rating system empowers you to provide valuable feedback. Each rating you give helps us improve our services. Thank you for using our system, and happy rating!
+And there you have it! Our straightforward image selection system enables you to handpick the best images with ease. Each choice you make is invaluable in helping us refine our AI-generated images. Thank you for your effort, and happy selecting!

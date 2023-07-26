@@ -1,53 +1,26 @@
-## Image Rating Criteria
+## Image Selection Guide
 
-In this task, your role is to evaluate AI-generated images and assign them a star rating, ranging from 0 (Remove/Full Rejection) to 5 (Exceptional Quality), based on the criteria provided in this document. Interpreting the quality of an image can be subjective, but these guidelines aim to provide a consistent framework for your evaluations.
+Hello and welcome to your task! Your mission is to sift through a set of 24 AI-generated images and pick the top four. You are our quality control expert, on a mission to find the most convincing and visually appealing images.
 
-Remember, this task isn't only about spotting faults—it's also about identifying high-quality, realistic images. Your contributions play a vital role in ensuring that only the most convincing and visually appealing AI-generated images are approved. We extend our gratitude for your attention to detail and your dedication to maintaining high standards in this task. Thank you for your participation!
+Before we delve into the task, let's take a moment to discuss the qualities you should be searching for:
 
-### Remove (0 Star) - Full Rejection
-Images with severe distortions, lack of symmetry, or other unnatural elements that make them obviously AI generated. Most importantly, any image with a visible watermark or signature is automatically rejected as this is a clear indicator of AI generation. This includes:
-- Two heads, extra limbs or digits, or missing body parts (especially noticeable on humans or animals)
-- Unnatural proportions on bodies, furniture, or objects
-- Text that is unreadable or obviously distorted
-- Merged crowds, or bodies blending with objects or backgrounds
-- Backgrounds looking like textures rather than actual environments
-- Blatant signatures or watermarks imitating commercial art
-- Large scenes that look incorrect or distorted
+### Consider Selecting an Image If:
+- **It's Realistic**: If the image convincingly mimics a photo or piece of artwork, that's a strong sign it's a keeper. We're not interested in images that obviously seem computer-generated.
+- **The Details are Spot-on**: Don't overlook the small stuff. Text should be legible, objects should look natural, and everything should be in its proper place.
+- **It's Cohesive**: A top-quality image forms a cohesive scene where every element harmoniously contributes to the overall image. The backdrop, the objects, the ambience - everything should blend together well.
+- **It's Striking**: We're after images that could grace the pages of a high-quality magazine or hang on the wall of an art gallery.
 
-### 1 Star - Poor
-Images that have some believable elements, but are still clearly AI-generated due to less severe but still noticeable issues. This could include:
-- Issues with hands or other body parts that aren't as severe as 0-star images but still noticeable
-- Animals or objects with incorrect proportions or missing elements
-- Slightly unnatural accessories/clothing or furniture (like glasses or tables missing legs)
-- Background elements looking slightly strange
-- Books with edges on more than one side
-- Slight asymmetry in vehicles or complex objects
+### Avoid Selecting an Image If:
+- **It's Unrealistic**: Skip images that include bizarre features such as extra limbs, multiple heads, or anything else that breaks the illusion of reality.
+- **Text is Illegible, or There Are Watermarks**: Any image with unreadable or strange text, or any visible watermarks, should be passed over.
+- **Human Proportions Are Wrong**: A common issue is strange hands, on humans holding objects in an incorrect way.
+- **The Proportions or Interactions are Incorrect**: If animals or objects seem to be the wrong size, or if they interact with one another in an unnatural way, you'll want to dismiss that image.
+- **The Background Isn't Appropriate**: If the backdrop looks more like a texture than an environment, that image isn't right for our needs.
 
-### 2 Star - Below Average
-Images where the AI-generated artifacts are not immediately obvious, but become noticeable upon closer inspection. These images might have:
-- Unnaturally interacting elements, like human hands holding items in a weird way
-- Certain elements, especially intricate ones like chains or detailed items like watches, that look strange
-- Images with an overall unnatural feel that you can't quite put your finger on
-- Furniture or other objects missing less noticeable elements, like table legs
+As you get more experienced with the task, you'll find you can speed up your ratings by quickly assessing images based on their thumbnails. With practice, you'll be able to look at a thumbnail and immediately determine whether it has a shot at being in the top four. You'll soon recognize which type of images rarely make the cut.
 
-### 3 Star - Average
-Images where the AI-generated issues are quite subtle and only noticeable upon very careful inspection. Characteristics might include:
-- Slight asymmetry in faces or objects that are not immediately noticeable
-- Subtle issues with proportions or details, like iguanas having slightly incorrect number of fingers
-- Very small sections of the image looking painted or blurred
-- Background elements that are slightly off but not enough to detract from the overall image
-- Subtle unnatural look to accessories or clothing
+However, don't let speed compromise the quality of your selections. While you can rapidly reject an image, you should scrutinize potential candidates thoroughly before adding them to your final selection. Make sure you take a detailed look and zoom in on any suspicious parts of the image.
 
-### 4 Star - High Quality
-Images that are mostly indistinguishable from a real photograph. They may contain minor imperfections, but overall, they would pass for a quality photo to the untrained eye. These images would include:
-- Minor issues that are only noticeable upon very close inspection, such as slight distortions in intricate details or text.
-- A cohesive, believable scene that does not immediately suggest AI generation.
-- Overall impressive composition and quality, similar to what might be found in a general-interest magazine.
+Please remember, among the set, we've included a "gold standard" image, a real image chosen by our expert panel. Your ability to spot and select this image will play a key role in assessing your image selection proficiency.
 
-### 5 Star - Exceptional Quality
-These images would be indistinguishable from high-quality photographs or works of art created by professionals. This includes:
-- Absolutely no noticeable distortions, asymmetry, or unnatural elements.
-- Text is perfectly normal and readable.
-- Backgrounds and environments are not just coherent, but also contribute to a well-composed scene.
-- Intricate details, including things like chains or hands, are well-rendered and look natural.
-- The image is not just believable, but impressive - comparable to something you might see in a high-end magazine or gallery. It should give no reason whatsoever to suspect it's AI-generated.
+Thanks in advance for your dedication to this task. Your careful selections help ensure we only showcase the most convincing and attractive AI-generated images. Happy selecting!
