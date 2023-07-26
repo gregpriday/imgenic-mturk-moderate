@@ -81,8 +81,8 @@
         <div class="gallery">
             <div class="instructions">
                 <p>
-                    Your job is to select the 4 <a href="#criteria" on:click|preventDefault={() => {instructions.openModal('criteria')}}>best images</a> from this batch.
-                    Click an image to view it in full, then click it again to select it.
+                    Select the 4 best images, based on <a href="#criteria" on:click|preventDefault={() => {instructions.openModal('criteria')}}>this guide</a>.
+                    Click a thumbnail to view the full image below. Click the thumbnail again to select it.
                     Once you've chosen the 4 best images, click <strong>Submit Selection</strong>.
                 </p>
             </div>
@@ -102,9 +102,7 @@
 
 <style lang="scss">
     .mturk-wrapper {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
+        padding-bottom: 40px;
     }
 
     .image-wrapper {
@@ -133,8 +131,8 @@
     }
 
     .current-image {
-        max-width: 800px;
-        margin: 0 auto;
+        max-width: 820px;
+        margin: 0 auto 20px auto;
     }
 
     .progress {

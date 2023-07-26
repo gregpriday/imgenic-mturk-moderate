@@ -31,9 +31,8 @@
         let a, x = 0, y = 0;
         e = e || window.event;
         a = containerRef.getBoundingClientRect();
-        x = e.pageX - a.left;
-        y = e.pageY - a.top;
-
+        x = e.pageX - a.left - window.scrollX;
+        y = e.pageY - a.top - window.scrollY;
         return {x, y};
     }
 </script>
@@ -46,7 +45,7 @@
 
 <style lang="scss">
     .tool-wrapper {
-        height: 840px;
+        height: 740px;
     }
 
     .image-container {
@@ -65,7 +64,7 @@
             width: auto;
 
             max-width: 100%;
-            max-height: 800px;
+            max-height: 700px;
         }
 
         &:hover img{
