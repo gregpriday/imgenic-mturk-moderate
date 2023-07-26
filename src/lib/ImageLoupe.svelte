@@ -54,7 +54,7 @@
         display: flex;
         position: relative;
         overflow: hidden;
-        padding: 25px;
+        padding: 35px;
 
         align-items: center;
         justify-content: center;
